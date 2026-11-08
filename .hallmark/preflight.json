@@ -1,0 +1,68 @@
+{
+  "mode": "Redesign · Overhaul, explicitly requested as V2 on a separate Git branch",
+  "scope": "Build seven static HTML routes on portfolio-v2. Do not change main, the existing V1 staging site, or marcadrian.com production.",
+  "before": {
+    "preserve": [
+      "V1 remains deployed from main and is untouched by this work.",
+      "The existing V1 section components and styling files remain in the repository; V2 is mounted through the branch-local App entry.",
+      "Keep the existing React/Vite stack, dependency set, and the user's authentic portfolio facts and pixel-art imagery."
+    ],
+    "improve": [
+      "Turn the one-page portfolio into a distinct seven-route information architecture.",
+      "Bring the supplied second mockup's tool verdicts, project records, timeline, and simulator copy into dedicated pages.",
+      "Make interactive elements keyboard-accessible and responsive, with reduced-motion alternatives."
+    ],
+    "remove": [
+      "No unsupported examples or placeholders for records absent from the user-supplied mockup.",
+      "No form that looks functional but has no submission endpoint."
+    ],
+    "protectedContracts": [
+      "Separate branch only; no staging or production deployment or DNS change.",
+      "The original V1 branch remains the rollback target and production source."
+    ],
+    "highestRisk": "The V2 site changes the single-page information architecture into new static routes; this is intentional and contained to portfolio-v2.",
+    "rollback": "Switch to main; the V1 source and current deployed site are not modified."
+  },
+  "designRead": {
+    "artifact": "Seven-page editorial portfolio",
+    "audience": "Founders and marketing leaders evaluating hands-on AI, marketing systems, and growth work",
+    "visualLanguage": "Warm editorial pixel art with cream paper, dark ink, teal signals, authentic character sprites, and clear typography",
+    "mode": "Overhaul, isolated on portfolio-v2",
+    "dials": {
+      "visualVariance": 7,
+      "motionIntensity": 4,
+      "informationDensity": 5,
+      "assetDependence": 8,
+      "brandFidelity": 8
+    }
+  },
+  "picks": {
+    "shape": "Index-first static multipage portfolio: home, philosophy, tool lab, work, timeline, audit, contact",
+    "hero": "Stage, with the supplied isometric pixel-art command centre as the visual anchor",
+    "signature": "Marc and the four cats in the original supplied pixel-art world",
+    "interactions": [
+      "Accessible hotspot popovers on the home scene",
+      "Scroll-stacked case studies on Work",
+      "Scroll-progress career spine on Timeline",
+      "Searchable verdict accordion on Tool Lab",
+      "Two-input local workflow diagnostic on Audit"
+    ],
+    "reducedMotion": "Disable ambient sprite animation, card pin/scale, and timeline progress/entrance motion; retain the complete content in a normal document flow."
+  },
+  "materials": {
+    "real": [
+      "Marc Adrian portfolio repository and existing V1 React/Vite app (src/App.tsx:25-35; package.json:5-10,12-62)",
+      "User-supplied mockup copy: nine complete tool verdicts, six projects, seven timeline entries, three philosophy modes, and nine diagnostic results.",
+      "User-supplied original pixel-art sprites and scenes."
+    ],
+    "pictures": [
+      "The command-centre scene and personal pixel art embedded in the supplied HTML mockups, copied into public/assets/v2/.",
+      "No external stock imagery or invented product screenshots."
+    ],
+    "absent": [
+      "Three additional tool records referenced by the second mockup's heading but not present in its data.",
+      "A third diagnostic input for primary channel; the prototype's actual logic implements two inputs only.",
+      "New client logos, testimonials, metrics, or external app screenshots."
+    ]
+  }
+}
