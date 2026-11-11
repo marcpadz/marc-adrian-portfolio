@@ -15,6 +15,12 @@ const NAV_ITEMS = [
 
 const asset = (filename: string) => `/assets/v2/${filename}`;
 
+function normalizePortfolioPathname(pathname: string): string {
+  const cleanPath = pathname.replace(/\/+$/, '') || '/';
+  if (cleanPath === '/' || cleanPath === '/index' || cleanPath === '/index.html') return '/';
+  return cleanPath.endsWith('.html') ? cleanPath : `${cleanPath}.html`;
+}
+
 function SiteHeader({
   pathname,
   spritesPaused,
@@ -119,7 +125,7 @@ function SiteFooter() {
 }
 
 function PageFrame({ children }: { children: ReactNode }) {
-  const pathname = window.location.pathname;
+  const pathname = normalizePortfolioPathname(window.location.pathname);
   const [spritesPaused, setSpritesPaused] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const shellRef = useRef<HTMLDivElement>(null);
@@ -1264,7 +1270,7 @@ function ContactPage() {
 }
 
 export default function PortfolioV2() {
-  const pathname = window.location.pathname;
+  const pathname = normalizePortfolioPathname(window.location.pathname);
   let page: ReactNode;
 
   switch (pathname) {
