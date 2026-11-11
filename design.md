@@ -44,7 +44,7 @@ Interactions are implemented with the existing React, Radix, and GSAP dependenci
 - `npm run build` succeeds and prerenders all seven routes. `git diff --check` is clean.
 - The changed V2 TSX passes targeted ESLint. Repository-wide `npm run lint` still reports eight errors in unchanged `src/components/ui/*` files; none are in this change set.
 - Hallmark rendered five home captures at 1280×800, 1440×900, 1920×1080, full-page 1440px, and full-page 375px. Final result: 0 FAIL, 0 REFLEX, 0 WARN; kept-content checks passed for 17/17 links, 2/2 fields, and 15/15 handlers.
-- Browser checks covered explicit and system dark mode, saved-theme persistence across routes, mobile width, reduced motion, and a clean console. The V2 work remains on `portfolio-v2`; no V1 staging alias or production deployment was changed.
+- Browser checks covered explicit and system dark mode, saved-theme persistence across routes, mobile width, reduced motion, and a clean console. The standalone preview is `https://marc-adrian-portfolio-v2-preview.pages.dev`, sourced only from `portfolio-v2` with no custom domain; the V1 staging alias and actual production site were not changed.
 
 ## Static output
 
