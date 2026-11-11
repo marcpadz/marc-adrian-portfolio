@@ -19,10 +19,14 @@ function SiteHeader({
   pathname,
   spritesPaused,
   onToggleSprites,
+  isDark,
+  onToggleTheme,
 }: {
   pathname: string;
   spritesPaused: boolean;
   onToggleSprites: () => void;
+  isDark: boolean;
+  onToggleTheme: () => void;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -48,6 +52,15 @@ function SiteHeader({
             aria-label={spritesPaused ? 'Play pixel sprites' : 'Pause pixel sprites'}
           >
             {spritesPaused ? 'Play' : 'Pause'}
+          </button>
+          <button
+            className="theme-toggle"
+            type="button"
+            onClick={onToggleTheme}
+            aria-pressed={isDark}
+            aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+          >
+            {isDark ? 'Light' : 'Dark'}
           </button>
           <a className="header-contact" href="/contact.html">Work with me</a>
           <button
@@ -108,7 +121,25 @@ function SiteFooter() {
 function PageFrame({ children }: { children: ReactNode }) {
   const pathname = window.location.pathname;
   const [spritesPaused, setSpritesPaused] = useState(false);
+  const [isDark, setIsDark] = useState(false);
   const shellRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const preference = typeof window.matchMedia === 'function'
+      ? window.matchMedia('(prefers-color-scheme: dark)')
+      : null;
+    const syncTheme = () => {
+      const explicitMode = root.dataset.mode;
+      setIsDark(explicitMode ? explicitMode === 'dark' : Boolean(preference?.matches));
+    };
+    const onPreferenceChange = (event: MediaQueryListEvent) => {
+      if (!root.dataset.mode) setIsDark(event.matches);
+    };
+    syncTheme();
+    preference?.addEventListener('change', onPreferenceChange);
+    return () => preference?.removeEventListener('change', onPreferenceChange);
+  }, []);
 
   useEffect(() => {
     if (!shellRef.current || !('IntersectionObserver' in window)) return;
@@ -120,6 +151,17 @@ function PageFrame({ children }: { children: ReactNode }) {
     return () => observer.disconnect();
   }, []);
 
+  const handleToggleTheme = () => {
+    const mode = isDark ? 'light' : 'dark';
+    document.documentElement.dataset.mode = mode;
+    try {
+      window.localStorage.setItem('marc-portfolio-theme', mode);
+    } catch {
+      // The current tab still changes mode if storage is unavailable.
+    }
+    setIsDark(mode === 'dark');
+  };
+
   return (
     <div ref={shellRef} className="site-shell" data-motion={spritesPaused ? 'paused' : 'playing'} id="top">
       <a className="skip-link" href="#main-content">Skip to content</a>
@@ -127,6 +169,8 @@ function PageFrame({ children }: { children: ReactNode }) {
         pathname={pathname}
         spritesPaused={spritesPaused}
         onToggleSprites={() => setSpritesPaused((paused) => !paused)}
+        isDark={isDark}
+        onToggleTheme={handleToggleTheme}
       />
       <main id="main-content">{children}</main>
       <SiteFooter />
@@ -221,11 +265,11 @@ function HomePage() {
       <section className="home-hero">
         <div className="page-container home-hero__grid">
           <div className="home-hero__copy">
-            <h1>I figure out where AI genuinely helps.</h1>
-            <p>I build apps, test workflows, and share what holds up in practice.</p>
+            <h1>Better marketing with AI and good judgment.</h1>
+            <p>I build and test AI marketing workflows on real campaigns.</p>
             <div className="hero-actions">
-              <a className="button button--primary" href="/tool-lab.html">Explore what holds up</a>
-              <a className="button button--quiet" href="/work.html">Inspect shipped apps</a>
+              <a className="button button--primary" href="/contact.html">Work with me</a>
+              <a className="button button--quiet" href="/work.html">See the work</a>
             </div>
           </div>
           <div className="home-hero__visual">
@@ -248,11 +292,11 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="home-manifesto" id="about">
+      <section className="home-manifesto" id="about" aria-labelledby="about-title">
         <div className="page-container manifesto-grid">
-          <h2>AI stops at human taste.</h2>
+          <h2 id="about-title">AI should help you do your best work.</h2>
           <div>
-            <p className="manifesto-copy">AI is part of my work; human judgment decides what is worth keeping.</p>
+            <p className="manifesto-copy">AI speeds up research, prototyping, and campaign operations. People keep the context and make the decisions.</p>
             <a className="text-link" href="/philosophy.html">Read my philosophy</a>
           </div>
           <img
@@ -264,16 +308,64 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="home-practice" aria-labelledby="home-practice-title">
+      <section className="home-practice" id="our-services" aria-labelledby="home-practice-title">
         <div className="page-container">
           <div className="section-heading section-heading--row">
-            <h2 id="home-practice-title">The work runs end to end</h2>
-            <p>Web, AI, and search systems built for useful outcomes.</p>
+            <h2 id="home-practice-title">Practical work for real marketing needs.</h2>
+            <p>Web design, AI and automation, SEO and GEO.</p>
           </div>
           <div className="practice-rows">
-            <article className="practice-row"><h3>Web design</h3><p>Pages that make the work and next step clear.</p></article>
-            <article className="practice-row"><h3>AI &amp; automation</h3><p>Repeatable workflows, with human quality gates.</p></article>
-            <article className="practice-row"><h3>SEO &amp; GEO</h3><p>Useful visibility across search and generative answers.</p></article>
+            <article className="practice-row">
+              <div className="practice-row__copy">
+                <h3>Web design</h3>
+                <p>Sites that clarify your offer and next step.</p>
+              </div>
+              <img className="pixel-art practice-row__sprite" src={asset('style-builderorangecatimg-6666fb9299.png')} alt="" aria-hidden="true" loading="lazy" />
+            </article>
+            <article className="practice-row">
+              <div className="practice-row__copy">
+                <h3>AI &amp; automation</h3>
+                <p>Human-reviewed workflows that protect quality.</p>
+              </div>
+              <img className="pixel-art practice-row__sprite" src={asset('style-builderrobotimg-484a6b0eb1.png')} alt="" aria-hidden="true" loading="lazy" />
+            </article>
+            <article className="practice-row">
+              <div className="practice-row__copy">
+                <h3>SEO &amp; GEO</h3>
+                <p>Search and AI visibility built on useful information.</p>
+              </div>
+              <img className="pixel-art practice-row__sprite" src={asset('style-dark-grey-cat-node-swat-9a1267b156.png')} alt="" aria-hidden="true" loading="lazy" />
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="home-why" id="why-choose-us" aria-labelledby="why-title">
+        <div className="page-container why-grid">
+          <div className="why-copy">
+            <h2 id="why-title" className="why-title">
+              <span className="why-title__line">I build and test</span>{' '}
+              <span className="why-title__line">what I use.</span>
+            </h2>
+            <p className="why-intro">I test tools in my own work before bringing proven workflows to yours.</p>
+            <a className="button button--primary why-cta" href="/contact.html">Talk about your project</a>
+          </div>
+          <div className="why-aside">
+            <img className="pixel-art why-aside__sprite" src={asset('style-back-3-4-view-of-marc-orchestrating-term-a54597b794.png')} alt="Pixel-art Marc reviewing a workflow on screen." loading="lazy" />
+            <ul className="why-points">
+              <li>
+                <h3>Human judgment</h3>
+                <p>People make the calls.</p>
+              </li>
+              <li>
+                <h3>Proven quality</h3>
+                <p>Tested on real campaigns.</p>
+              </li>
+              <li>
+                <h3>Shared tools</h3>
+                <p>Experiments become practical tools.</p>
+              </li>
+            </ul>
           </div>
         </div>
       </section>

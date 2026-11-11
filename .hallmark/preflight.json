@@ -10,7 +10,9 @@
     "improve": [
       "Turn the one-page portfolio into a distinct seven-route information architecture.",
       "Bring the supplied second mockup's tool verdicts, project records, timeline, and simulator copy into dedicated pages.",
-      "Make interactive elements keyboard-accessible and responsive, with reduced-motion alternatives."
+      "Make interactive elements keyboard-accessible and responsive, with reduced-motion alternatives.",
+      "Apply the latest mockup's pixel-art font and service direction, remove italic styling, and add a persistent light/dark theme choice.",
+      "Keep Services static and add a single restrained Why-section reveal; leave Process scroll interaction unimplemented pending Marc's choice."
     ],
     "remove": [
       "No unsupported examples or placeholders for records absent from the user-supplied mockup.",
@@ -45,9 +47,12 @@
       "Scroll-stacked case studies on Work",
       "Scroll-progress career spine on Timeline",
       "Searchable verdict accordion on Tool Lab",
-      "Two-input local workflow diagnostic on Audit"
+      "Two-input local workflow diagnostic on Audit",
+      "Persistent accessible light/dark theme toggle",
+      "One CSS view-timeline reveal on the Why heading, only on supported desktop screens with reduced-motion fallback"
     ],
-    "reducedMotion": "Disable ambient sprite animation, card pin/scale, and timeline progress/entrance motion; retain the complete content in a normal document flow."
+    "pending": "Process interaction is not implemented. Ask Marc whether pinned scroll was the problem before choosing pinned versus normal scroll.",
+    "reducedMotion": "Disable ambient sprite animation, card pin/scale, timeline progress/entrance motion, and the Why heading reveal; retain complete content in normal document flow."
   },
   "materials": {
     "real": [
