@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import * as Popover from '@radix-ui/react-popover';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -286,76 +286,192 @@ const PROCESS_STEPS = [
 
 function HomeProcessSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const pinRef = useRef<HTMLDivElement | null>(null);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
   const [activeStep, setActiveStep] = useState(0);
+  const [scrollControlled, setScrollControlled] = useState(true);
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section || !('IntersectionObserver' in window)) return;
+    const pin = pinRef.current;
+    const viewport = viewportRef.current;
+    const track = trackRef.current;
+    if (!section || !pin || !viewport || !track) return;
 
-    const steps = section.querySelectorAll<HTMLElement>('[data-process-index]');
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries.filter((entry) => entry.isIntersecting);
-      if (!visible.length) return;
-      visible.sort((a, b) => {
-        const center = window.innerHeight / 2;
-        const distanceA = Math.abs(a.boundingClientRect.top + a.boundingClientRect.height / 2 - center);
-        const distanceB = Math.abs(b.boundingClientRect.top + b.boundingClientRect.height / 2 - center);
-        return distanceA - distanceB;
-      });
-      const currentIndex = Number(visible[0].target.getAttribute('data-process-index'));
-      if (Number.isFinite(currentIndex)) setActiveStep(currentIndex);
-    }, { rootMargin: '-38% 0px -38% 0px', threshold: 0.02 });
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const steps = [...section.querySelectorAll<HTMLElement>('[data-process-index]')];
+    let frame = 0;
+    let activeIndex = 0;
+    let observer: IntersectionObserver | null = null;
+    let resizeObserver: ResizeObserver | null = null;
+    let scheduleUpdate = () => {};
 
-    steps.forEach((step) => observer.observe(step));
-    return () => observer.disconnect();
+    const setCurrentStep = (index: number) => {
+      if (index === activeIndex) return;
+      activeIndex = index;
+      setActiveStep(index);
+    };
+
+    const configureMotion = () => {
+      window.removeEventListener('scroll', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
+      resizeObserver?.disconnect();
+      observer?.disconnect();
+      observer = null;
+      resizeObserver = null;
+      if (frame) window.cancelAnimationFrame(frame);
+      frame = 0;
+      track.style.removeProperty('transform');
+
+      if (motionPreference.matches) {
+        setScrollControlled(false);
+        if (!('IntersectionObserver' in window)) return;
+        observer = new IntersectionObserver((entries) => {
+          const visible = entries.filter((entry) => entry.isIntersecting);
+          if (!visible.length) return;
+          visible.sort((a, b) => {
+            const center = window.innerHeight / 2;
+            const distanceA = Math.abs(a.boundingClientRect.top + a.boundingClientRect.height / 2 - center);
+            const distanceB = Math.abs(b.boundingClientRect.top + b.boundingClientRect.height / 2 - center);
+            return distanceA - distanceB;
+          });
+          const nextIndex = Number(visible[0].target.getAttribute('data-process-index'));
+          if (Number.isFinite(nextIndex)) setCurrentStep(nextIndex);
+        }, { rootMargin: '-38% 0px -38% 0px', threshold: 0.02 });
+        steps.forEach((step) => observer?.observe(step));
+        return;
+      }
+
+      setScrollControlled(true);
+      scheduleUpdate = () => {
+        if (frame) return;
+        frame = window.requestAnimationFrame(() => {
+          frame = 0;
+          const sectionTop = section.getBoundingClientRect().top;
+          const headerHeight = document.querySelector<HTMLElement>('.site-header')?.getBoundingClientRect().height ?? 0;
+          const scrollDistance = Math.max(1, section.offsetHeight - pin.offsetHeight);
+          const progress = Math.max(0, Math.min(1, (headerHeight - sectionTop) / scrollDistance));
+          const maxTranslate = Math.max(0, track.scrollWidth - viewport.clientWidth);
+          track.style.transform = `translate3d(${-maxTranslate * progress}px, 0, 0)`;
+          setCurrentStep(Math.min(PROCESS_STEPS.length - 1, Math.round(progress * (PROCESS_STEPS.length - 1))));
+        });
+      };
+      window.addEventListener('scroll', scheduleUpdate, { passive: true });
+      window.addEventListener('resize', scheduleUpdate);
+      if ('ResizeObserver' in window) {
+        resizeObserver = new ResizeObserver(scheduleUpdate);
+        resizeObserver.observe(section);
+        resizeObserver.observe(viewport);
+        resizeObserver.observe(track);
+      }
+      scheduleUpdate();
+    };
+
+    configureMotion();
+    motionPreference.addEventListener('change', configureMotion);
+    return () => {
+      motionPreference.removeEventListener('change', configureMotion);
+      window.removeEventListener('scroll', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
+      resizeObserver?.disconnect();
+      observer?.disconnect();
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
+  const navigateToStep = (event: MouseEvent<HTMLAnchorElement>, index: number) => {
+    event.preventDefault();
+    const section = sectionRef.current;
+    const pin = pinRef.current;
+    const card = document.getElementById(`home-process-step-${index + 1}`);
+    if (!section || !pin || !card) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (scrollControlled && !reduceMotion) {
+      const headerHeight = document.querySelector<HTMLElement>('.site-header')?.getBoundingClientRect().height ?? 0;
+      const scrollDistance = Math.max(1, section.offsetHeight - pin.offsetHeight);
+      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+      const target = sectionTop - headerHeight + scrollDistance * (index / (PROCESS_STEPS.length - 1));
+      window.scrollTo({ top: target, behavior: 'smooth' });
+      return;
+    }
+
+    const headerHeight = document.querySelector<HTMLElement>('.site-header')?.getBoundingClientRect().height ?? 0;
+    const target = card.getBoundingClientRect().top + window.scrollY - headerHeight - 24;
+    window.scrollTo({ top: target, behavior: reduceMotion ? 'auto' : 'smooth' });
+  };
+
   return (
-    <section ref={sectionRef} className="home-process" id="home-process" aria-labelledby="home-process-title">
-      <div className="page-container">
-        <div className="section-heading section-heading--row">
-          <div>
-            <h2 id="home-process-title">Build. Test. Keep what holds up.</h2>
-            <p>Small systems built around real work, with people making the calls.</p>
-          </div>
-        </div>
-        <div className="home-process__layout">
-          <nav className="home-process__rail" aria-label="How the work gets built">
-            <p className="home-process__rail-title">The process</p>
-            <ol className="home-process__nav">
-              {PROCESS_STEPS.map((step, index) => (
-                <li key={step.title}>
-                  <a
-                    className={activeStep === index ? 'home-process__link is-active' : 'home-process__link'}
-                    href={`#home-process-step-${index + 1}`}
-                    aria-current={activeStep === index ? 'step' : undefined}
-                  >
-                    <span className="home-process__link-number">{String(index + 1).padStart(2, '0')}</span>
-                    <span>{step.title}</span>
-                  </a>
-                </li>
-              ))}
-            </ol>
-            <div className="home-process__aside">
-              <img className="pixel-art" src={asset('style-processcatsprite-c9b4693f21.png')} alt="" aria-hidden="true" loading="lazy" />
-              <p>Human judgment stays in the loop.</p>
+    <section
+      ref={sectionRef}
+      className={scrollControlled ? 'home-process is-scroll-controlled' : 'home-process'}
+      id="home-process"
+      aria-labelledby="home-process-title"
+    >
+      <div ref={pinRef} className="home-process__pin">
+        <div className="page-container home-process__pin-inner">
+          <div className="section-heading section-heading--row home-process__heading">
+            <div>
+              <h2 id="home-process-title">Build. Test. Keep what holds up.</h2>
+              <p>Small systems built around real work, with people making the calls.</p>
             </div>
-          </nav>
-          <div className="home-process__story">
-            {PROCESS_STEPS.map((step, index) => (
-              <article
-                className={activeStep === index ? 'home-process__step is-active' : 'home-process__step'}
-                id={`home-process-step-${index + 1}`}
-                data-process-index={index}
-                key={step.title}
-              >
-                <span className="home-process__step-number">{String(index + 1).padStart(2, '0')}</span>
-                <div>
-                  <h3>{step.title}</h3>
-                  <p>{step.description}</p>
+            <div className="home-process__heading-note">
+              <p>Human judgment stays in the loop.</p>
+              <p className="home-process__scroll-hint">Scroll to move between cards, or choose a step.</p>
+            </div>
+          </div>
+          <div className="home-process__toolbar">
+            <nav className="home-process__nav-wrap" aria-label="Process steps">
+              <ol className="home-process__nav">
+                {PROCESS_STEPS.map((step, index) => (
+                  <li key={step.title}>
+                    <a
+                      className={activeStep === index ? 'home-process__link is-active' : 'home-process__link'}
+                      href={`#home-process-step-${index + 1}`}
+                      aria-current={activeStep === index ? 'step' : undefined}
+                      aria-label={`Step ${index + 1}: ${step.title}`}
+                      onClick={(event) => navigateToStep(event, index)}
+                    >
+                      <span className="home-process__link-number">{String(index + 1).padStart(2, '0')}</span>
+                      <span className="home-process__link-label">{step.title}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+            <p className="home-process__progress" role="status" aria-live="polite" aria-atomic="true">
+              <span>{String(activeStep + 1).padStart(2, '0')}</span>
+              <span aria-hidden="true"> / </span>
+              <span>{String(PROCESS_STEPS.length).padStart(2, '0')}</span>
+              <span className="home-process__progress-title"> · {PROCESS_STEPS[activeStep].title}</span>
+            </p>
+          </div>
+          <div ref={viewportRef} className="home-process__viewport" role="group" aria-label="Four-step process cards">
+            <div ref={trackRef} className="home-process__track">
+              {PROCESS_STEPS.map((step, index) => (
+                <div className="home-process__slide" key={step.title}>
+                  <article
+                    className={activeStep === index ? 'home-process__step is-active' : 'home-process__step'}
+                    id={`home-process-step-${index + 1}`}
+                    data-process-index={index}
+                    aria-labelledby={`home-process-step-title-${index + 1}`}
+                  >
+                    <span
+                      className={activeStep === index ? 'home-process__cat is-active' : 'home-process__cat'}
+                      aria-hidden="true"
+                    />
+                    <span className="home-process__step-number">
+                      {String(index + 1).padStart(2, '0')} / {String(PROCESS_STEPS.length).padStart(2, '0')}
+                    </span>
+                    <div>
+                      <h3 id={`home-process-step-title-${index + 1}`}>{step.title}</h3>
+                      <p>{step.description}</p>
+                    </div>
+                  </article>
                 </div>
-              </article>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

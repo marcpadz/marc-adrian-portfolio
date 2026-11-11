@@ -27,11 +27,11 @@ Design read: seven static routes for founders and marketing leaders who want to 
 
 The app stays on its existing React/Vite stack. Home uses accessible scene popovers and a sticky, scroll-synced four-step process rail; Apps & Workflows uses a data-driven selector for each project; the timeline follows [21st.dev Modern Timeline](https://21st.dev/@chowlol202/components/modern-timeline); the tool index borrows the searchable accordion shape from [21st.dev Searchable FAQ](https://21st.dev/@educalvolpz/components/faq-3); the diagnostic follows [21st.dev Product Finder Quiz](https://21st.dev/@ziegfiroyt/components/ecommerce46). The portfolio grid and popover references are [Portfolio Showcase Grid](https://21st.dev/@uiable/components/block-portfolio-9) and [Popover](https://21st.dev/@ddoemonn/components/popover).
 
-Interactions are implemented with the existing React, Radix, and GSAP dependencies rather than installing a new component generator or changing the app framework. Home services remain still, matching the reference; the Why heading uses one subtle CSS view-timeline reveal on larger screens, with a static fallback and reduced-motion support. The Process rail tracks the stage nearest the viewport center and offers direct links; it becomes non-sticky on narrow screens. Apps & Workflows derives step count and labels from its project records and current filter. The dark-mode choice persists locally, and the ambient sprite keeps its existing pause control. Every interactive item remains keyboard reachable with a visible focus state. The page content remains complete without animation.
+Interactions are implemented with the existing React, Radix, and GSAP dependencies rather than installing a new component generator or changing the app framework. Home services remain still, matching the reference; the Why heading uses one subtle CSS view-timeline reveal on larger screens, with a static fallback and reduced-motion support. The Process now uses a pinned, horizontally moving sequence of four cards driven by ordinary vertical page scrolling, with selectable keyboard-accessible step links and a black pixel cat that hops to the active card. Reduced-motion preferences show the cards in normal vertical flow without the hop. Apps & Workflows derives step count and labels from its project records and current filter. The dark-mode choice persists locally, and the ambient sprite keeps its existing pause control. Every interactive item remains keyboard reachable with a visible focus state. The page content remains complete without animation.
 
 ## Preservation and risk notes
 
-- V1 remains on `main`; V2 is developed on `portfolio-v2` and is not deployed to staging or production.
+- V1 remains on `main`; V2 is developed on `portfolio-v2` and deploys only to its standalone V2 preview project, not V1 staging or the user's production site.
 - Keep the header logo/wordmark as a placeholder; do not invent a replacement mark.
 - Preserve user-supplied claims as written in the mockup; do not add new metrics, clients, testimonials, or tool verdicts.
 - The nine tool cards, six project records, seven timeline records, three philosophy simulator modes, and two audit inputs come from the supplied second HTML mockup.
@@ -39,11 +39,11 @@ Interactions are implemented with the existing React, Radix, and GSAP dependenci
 
 ## Final review
 
-- The home follows the supplied pixel-art direction, with web design, AI/automation, and SEO/GEO rows, a hands-on Why section, a direct service CTA, a six-link route index, and a four-stage sticky Process rail. The existing wordmark stays a placeholder.
+- The home follows the supplied pixel-art direction, with web design, AI/automation, and SEO/GEO rows, a hands-on Why section, a direct service CTA, a six-link route index, and a pinned horizontal four-card Process sequence. The existing wordmark stays a placeholder.
 - Apps & Workflows now gives each of the six supplied projects a selectable step; the filters adapt the selector to four apps or two workflows. No project records or claims were added.
 - Typography uses Plus Jakarta Sans for body, upright Instrument Serif for headings, and JetBrains Mono only for code; italic styling is removed. The persistent light/dark toggle is system-aware, and the Why heading reveal has a reduced-motion fallback.
 - `npm run build` succeeds and prerenders all seven routes. Targeted ESLint on `src/portfolio-v2.tsx` passes, and `git diff --check` is clean.
-- Targeted browser checks confirmed scroll tracking on the third Home stage, a sticky desktop rail, no horizontal overflow at 390px, and project selector counts of 6, 4, and 2. Selecting PeraNova updated the panel and counter. The local browser console reported no runtime errors.
+- Targeted browser checks confirmed a pinned desktop card track, step-link navigation to Step 3, a visible full cat sprite above the active card, a static vertical stack for reduced motion, and no horizontal overflow at 390px.
 - The changed V2 TSX passes targeted ESLint. Repository-wide `npm run lint` still reports eight errors in unchanged `src/components/ui/*` files; none are in this change set.
 - The earlier Hallmark captures and cross-route checks are the baseline for the existing design; they were not rerun for this small interaction extension.
 - The standalone preview remains `https://marc-adrian-portfolio-v2-preview.pages.dev`, sourced only from `portfolio-v2` with no custom domain; V1 staging, production, and `main` remain unchanged.
