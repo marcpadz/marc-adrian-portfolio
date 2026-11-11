@@ -265,6 +265,104 @@ function SceneHotspots() {
   );
 }
 
+const PROCESS_STEPS = [
+  {
+    title: 'Find the real bottleneck',
+    description: 'Start with where work gets stuck, not where AI can be added.',
+  },
+  {
+    title: 'Shape a small solution',
+    description: 'Build a tool or workflow around the way the work actually happens.',
+  },
+  {
+    title: 'Test it in real work',
+    description: 'Use it on real campaigns and check the output with human judgment.',
+  },
+  {
+    title: 'Keep what holds up',
+    description: 'Refine the useful parts, document them, and remove the rest.',
+  },
+];
+
+function HomeProcessSection() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [activeStep, setActiveStep] = useState(0);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || !('IntersectionObserver' in window)) return;
+
+    const steps = section.querySelectorAll<HTMLElement>('[data-process-index]');
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting);
+      if (!visible.length) return;
+      visible.sort((a, b) => {
+        const center = window.innerHeight / 2;
+        const distanceA = Math.abs(a.boundingClientRect.top + a.boundingClientRect.height / 2 - center);
+        const distanceB = Math.abs(b.boundingClientRect.top + b.boundingClientRect.height / 2 - center);
+        return distanceA - distanceB;
+      });
+      const currentIndex = Number(visible[0].target.getAttribute('data-process-index'));
+      if (Number.isFinite(currentIndex)) setActiveStep(currentIndex);
+    }, { rootMargin: '-38% 0px -38% 0px', threshold: 0.02 });
+
+    steps.forEach((step) => observer.observe(step));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section ref={sectionRef} className="home-process" id="home-process" aria-labelledby="home-process-title">
+      <div className="page-container">
+        <div className="section-heading section-heading--row">
+          <div>
+            <h2 id="home-process-title">Build. Test. Keep what holds up.</h2>
+            <p>Small systems built around real work, with people making the calls.</p>
+          </div>
+        </div>
+        <div className="home-process__layout">
+          <nav className="home-process__rail" aria-label="How the work gets built">
+            <p className="home-process__rail-title">The process</p>
+            <ol className="home-process__nav">
+              {PROCESS_STEPS.map((step, index) => (
+                <li key={step.title}>
+                  <a
+                    className={activeStep === index ? 'home-process__link is-active' : 'home-process__link'}
+                    href={`#home-process-step-${index + 1}`}
+                    aria-current={activeStep === index ? 'step' : undefined}
+                  >
+                    <span className="home-process__link-number">{String(index + 1).padStart(2, '0')}</span>
+                    <span>{step.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+            <div className="home-process__aside">
+              <img className="pixel-art" src={asset('style-processcatsprite-c9b4693f21.png')} alt="" aria-hidden="true" loading="lazy" />
+              <p>Human judgment stays in the loop.</p>
+            </div>
+          </nav>
+          <div className="home-process__story">
+            {PROCESS_STEPS.map((step, index) => (
+              <article
+                className={activeStep === index ? 'home-process__step is-active' : 'home-process__step'}
+                id={`home-process-step-${index + 1}`}
+                data-process-index={index}
+                key={step.title}
+              >
+                <span className="home-process__step-number">{String(index + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function HomePage() {
   return (
     <PageFrame>
@@ -345,6 +443,8 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+      <HomeProcessSection />
 
       <section className="home-why" id="why-choose-us" aria-labelledby="why-title">
         <div className="page-container why-grid">
@@ -725,6 +825,7 @@ function ToolLabPage() {
 
 type ProjectRecord = {
   title: string;
+  selectorTitle: string;
   type: 'app' | 'workflow';
   badge: string;
   metrics: string;
@@ -736,7 +837,7 @@ type ProjectRecord = {
 
 const PROJECTS: ProjectRecord[] = [
   {
-    title: 'Marcus_v2: Autonomous Marketing & Ops Engine', type: 'app', badge: 'AI codebase, Vercel and GitHub Actions',
+    title: 'Marcus_v2: Autonomous Marketing & Ops Engine', selectorTitle: 'Marcus_v2', type: 'app', badge: 'AI codebase, Vercel and GitHub Actions',
     metrics: 'Automated CI/CD, multi-agent workflows',
     desc: 'My flagship internal software suite combines AI workflow execution, automated content QA, and telemetry with CodeQL and Codacy guardrails.',
     summary: 'AI-assisted ops, content QA, and code safety guardrails.',
@@ -744,7 +845,7 @@ const PROJECTS: ProjectRecord[] = [
     deepDive: 'Built to test agentic marketing workflows in a real production environment before rolling patterns out to client teams.',
   },
   {
-    title: 'Eloqwnt AI-First Content System', type: 'workflow', badge: 'Growth engine, agency ops',
+    title: 'Eloqwnt AI-First Content System', selectorTitle: 'Eloqwnt', type: 'workflow', badge: 'Growth engine, agency ops',
     metrics: '180% organic traffic growth, 60% shorter turnaround',
     desc: 'Architected an AI-assisted editorial pipeline producing 20+ high-ranking pieces/month with a lean 3-person team while saving 25+ hours/week.',
     summary: 'An editorial pipeline built for a lean agency growth team.',
@@ -752,7 +853,7 @@ const PROJECTS: ProjectRecord[] = [
     deepDive: 'Replaced fragmented freelancer drafts with structured SERP intelligence, automated brief assembly, and strict human narrative editing.',
   },
   {
-    title: 'Scribe: AI Audio & Drive Intelligence', type: 'app', badge: 'Shipped app, Gemini and Google Drive API',
+    title: 'Scribe: AI Audio & Drive Intelligence', selectorTitle: 'Scribe', type: 'app', badge: 'Shipped app, Gemini and Google Drive API',
     metrics: 'Voice-to-structured-asset pipeline',
     desc: 'A custom application integrating Google Drive and Gemini models to turn raw founder voice notes and call recordings into structured briefs and articles.',
     summary: 'Turns founder voice notes and calls into structured briefs.',
@@ -760,7 +861,7 @@ const PROJECTS: ProjectRecord[] = [
     deepDive: 'It solves the reason AI content sounds generic: it extracts authentic subject-matter expertise straight from spoken conversations.',
   },
   {
-    title: 'NomadOS: Operator Finance & Velocity Cockpit', type: 'app', badge: 'Full-stack app, Zeabur Cloud',
+    title: 'NomadOS: Operator Finance & Velocity Cockpit', selectorTitle: 'NomadOS', type: 'app', badge: 'Full-stack app, Zeabur Cloud',
     metrics: 'Real-time P&L, subscriptions and runway',
     desc: 'A full-stack dashboard built to run my own business, tracking SaaS tool ROI, client retainers, and operational velocity in one interface.',
     summary: 'One cockpit for tool ROI, retainers, and business runway.',
@@ -768,7 +869,7 @@ const PROJECTS: ProjectRecord[] = [
     deepDive: 'Every AI tool subscription gets audited here against actual hours saved and revenue generated.',
   },
   {
-    title: 'iMoney 20x Organic Growth Engine', type: 'workflow', badge: 'Enterprise SEO, revenue attribution',
+    title: 'iMoney 20x Organic Growth Engine', selectorTitle: 'iMoney', type: 'workflow', badge: 'Enterprise SEO, revenue attribution',
     metrics: '100K → 2M monthly visitors, 500+ #1 ranks',
     desc: 'Scaled organic traffic 20x across Southeast Asia, built and mentored an 8-person editorial team, and authored the company-wide SEO playbook.',
     summary: 'Regional SEO growth, editorial teams, and revenue attribution.',
@@ -776,7 +877,7 @@ const PROJECTS: ProjectRecord[] = [
     deepDive: 'Proved that deep domain authority and conversion-focused comparison architecture can compound into attributed revenue.',
   },
   {
-    title: 'PeraNova: Fintech Borrower Empowerment Platform', type: 'app', badge: 'Fintech product and brand architecture',
+    title: 'PeraNova: Fintech Borrower Empowerment Platform', selectorTitle: 'PeraNova', type: 'app', badge: 'Fintech product and brand architecture',
     metrics: 'Trust-score UX, Southeast Asia fintech',
     desc: 'Brand positioning, trust-score UX architecture, and AI-assisted competitive intelligence for a borrower empowerment platform in the Philippines.',
     summary: 'Trust-score UX and fintech strategy for Southeast Asian borrowers.',
@@ -805,56 +906,11 @@ function ProjectDetails({ project }: { project: ProjectRecord }) {
   );
 }
 
-function ProjectStack({ projects }: { projects: ProjectRecord[] }) {
-  const stackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!stackRef.current || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const context = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>('.project-stack-card');
-      cards.slice(0, -1).forEach((card, index) => {
-        gsap.to(card, {
-          scale: 0.97 - index * 0.008,
-          y: -10,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: cards[index + 1],
-            start: 'top 72%',
-            end: 'top 25%',
-            scrub: true,
-          },
-        });
-      });
-    }, stackRef);
-    return () => context.revert();
-  }, [projects]);
-
-  return (
-    <div ref={stackRef} className="project-stack-wrap">
-      <ol className="project-stack">
-        {projects.map((project) => (
-          <li className="project-stack-card" key={project.title}>
-            <article className="project-card">
-              <div className="project-card__topline">
-                <span>{project.type === 'app' ? 'App' : 'Workflow'}</span>
-              </div>
-              <h3>{project.title}</h3>
-              <p className="project-card__metrics">{project.metrics}</p>
-              <p className="project-card__summary">{project.summary}</p>
-              <ProjectDetails project={project} />
-            </article>
-          </li>
-        ))}
-      </ol>
-    </div>
-  );
-}
-
 function WorkPage() {
   const [filter, setFilter] = useState<'all' | ProjectRecord['type']>('all');
+  const [activeStep, setActiveStep] = useState(0);
   const projects = useMemo(() => PROJECTS.filter((project) => filter === 'all' || project.type === filter), [filter]);
-  const featured = projects.slice(0, 3);
-  const remaining = projects.slice(3);
+  const selectedProject = projects[activeStep] ?? PROJECTS[0];
 
   return (
     <PageFrame>
@@ -865,36 +921,46 @@ function WorkPage() {
       <section className="section-block work-page">
         <div className="page-container">
           <div className="section-heading section-heading--row">
-            <div><h2>Six builds for real work</h2><p>Open a project note for the longer version.</p></div>
+            <div><h2>{PROJECTS.length} builds for real work</h2><p>Select a build to explore the details.</p></div>
             <div className="tab-list" role="group" aria-label="Filter projects">
-              <button className={filter === 'all' ? 'tab-button is-active' : 'tab-button'} type="button" aria-pressed={filter === 'all'} onClick={() => setFilter('all')}>All builds (6)</button>
-              <button className={filter === 'app' ? 'tab-button is-active' : 'tab-button'} type="button" aria-pressed={filter === 'app'} onClick={() => setFilter('app')}>AI apps &amp; codebases</button>
-              <button className={filter === 'workflow' ? 'tab-button is-active' : 'tab-button'} type="button" aria-pressed={filter === 'workflow'} onClick={() => setFilter('workflow')}>Growth workflows</button>
+              <button className={filter === 'all' ? 'tab-button is-active' : 'tab-button'} type="button" aria-pressed={filter === 'all'} onClick={() => { setFilter('all'); setActiveStep(0); }}>All builds ({PROJECTS.length})</button>
+              <button className={filter === 'app' ? 'tab-button is-active' : 'tab-button'} type="button" aria-pressed={filter === 'app'} onClick={() => { setFilter('app'); setActiveStep(0); }}>AI apps &amp; codebases</button>
+              <button className={filter === 'workflow' ? 'tab-button is-active' : 'tab-button'} type="button" aria-pressed={filter === 'workflow'} onClick={() => { setFilter('workflow'); setActiveStep(0); }}>Growth workflows</button>
             </div>
           </div>
-          <ProjectStack projects={featured} />
+          <div className="project-selector" role="group" aria-label={`Choose from ${projects.length} ${projects.length === 1 ? 'build' : 'builds'}`}>
+            {projects.map((project, index) => (
+              <button
+                className={activeStep === index ? 'project-selector__button is-active' : 'project-selector__button'}
+                type="button"
+                aria-pressed={activeStep === index}
+                aria-controls="selected-project"
+                key={project.title}
+                onClick={() => setActiveStep(index)}
+              >
+                <span className="project-selector__number">{String(index + 1).padStart(2, '0')}</span>
+                <span className="project-selector__title">{project.selectorTitle}</span>
+              </button>
+            ))}
+          </div>
+          <article className="project-card project-showcase" id="selected-project" aria-live="polite">
+            <div className="project-showcase__visual" aria-hidden="true">
+              <span className="project-showcase__number">{String(activeStep + 1).padStart(2, '0')}</span>
+              <img className="pixel-art project-showcase__cat" src={asset('style-greycatcardsprite-ba8eca3fd4.png')} alt="" loading="lazy" />
+            </div>
+            <div className="project-showcase__content">
+              <div className="project-card__topline">
+                <span>{selectedProject.type === 'app' ? 'App' : 'Workflow'}</span>
+                <span>Build {String(activeStep + 1).padStart(2, '0')} of {projects.length}</span>
+              </div>
+              <h3>{selectedProject.title}</h3>
+              <p className="project-card__metrics">{selectedProject.metrics}</p>
+              <p className="project-card__summary">{selectedProject.summary}</p>
+              <ProjectDetails key={selectedProject.title} project={selectedProject} />
+            </div>
+          </article>
         </div>
       </section>
-      {remaining.length > 0 && (
-        <section className="section-block project-index-section">
-          <div className="page-container">
-            <div className="project-index">
-              <h2>More from the workbench</h2>
-              <ol>
-                {remaining.map((project) => (
-                  <li key={project.title}>
-                    <article className="project-row">
-                      <div><h3>{project.title}</h3></div>
-                      <p>{project.metrics}</p>
-                      <ProjectDetails project={project} />
-                    </article>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-        </section>
-      )}
       <section className="close-band">
         <div className="page-container close-band__inner">
           <h2>Have a workflow worth fixing?</h2>

@@ -18,16 +18,16 @@ Design read: seven static routes for founders and marketing leaders who want to 
 - `/` — home, pixel command-centre scene, direct service CTA, pixel-art rows for web design, AI/automation, SEO/GEO, and a hands-on Why section.
 - `/philosophy.html` — the anti-slop operating system, with a three-way AI-versus-human simulator.
 - `/tool-lab.html` — searchable, expandable tool verdicts. The mockup embeds nine records although its heading says 12, so the page reports the nine records actually supplied.
-- `/work.html` — six supplied apps and workflow projects, three featured in a scroll-stacked set and the other three in a plain index.
+- `/work.html` — six supplied app and workflow projects in a selectable showcase; filters expose the four apps or two workflows.
 - `/timeline.html` — seven supplied career entries with the mockup's four phase labels and a scroll-progress spine.
 - `/audit.html` — an interactive starting blueprint using the two implemented inputs (bottleneck and AI maturity); no unsupported third channel input or guaranteed savings claim.
 - `/contact.html` — direct contact and social paths; no nonfunctional form submission.
 
 ## Motion and component references
 
-The app stays on its existing React/Vite stack. The home pins use an accessible popover pattern; the work page uses the scroll-pinned stack pattern from [21st.dev Stacking Cards](https://21st.dev/@danielpetho/components/stacking-cards); the timeline follows [21st.dev Modern Timeline](https://21st.dev/@chowlol202/components/modern-timeline); the tool index borrows the searchable accordion shape from [21st.dev Searchable FAQ](https://21st.dev/@educalvolpz/components/faq-3); the diagnostic follows [21st.dev Product Finder Quiz](https://21st.dev/@ziegfiroyt/components/ecommerce46). The portfolio grid and popover references are [Portfolio Showcase Grid](https://21st.dev/@uiable/components/block-portfolio-9) and [Popover](https://21st.dev/@ddoemonn/components/popover).
+The app stays on its existing React/Vite stack. Home uses accessible scene popovers and a sticky, scroll-synced four-step process rail; Apps & Workflows uses a data-driven selector for each project; the timeline follows [21st.dev Modern Timeline](https://21st.dev/@chowlol202/components/modern-timeline); the tool index borrows the searchable accordion shape from [21st.dev Searchable FAQ](https://21st.dev/@educalvolpz/components/faq-3); the diagnostic follows [21st.dev Product Finder Quiz](https://21st.dev/@ziegfiroyt/components/ecommerce46). The portfolio grid and popover references are [Portfolio Showcase Grid](https://21st.dev/@uiable/components/block-portfolio-9) and [Popover](https://21st.dev/@ddoemonn/components/popover).
 
-Interactions are implemented with the existing React, Radix, and GSAP dependencies rather than installing a new component generator or changing the app framework. Home services remain still, matching the reference; the Why heading uses one subtle CSS view-timeline reveal on larger screens, with a static fallback and reduced-motion support. The Process scroll behavior is intentionally not implemented until Marc clarifies whether pinning was the problem. The dark-mode choice persists locally, and the ambient sprite keeps its existing pause control. Every interactive item remains keyboard reachable with a visible focus state. The page content remains complete without animation.
+Interactions are implemented with the existing React, Radix, and GSAP dependencies rather than installing a new component generator or changing the app framework. Home services remain still, matching the reference; the Why heading uses one subtle CSS view-timeline reveal on larger screens, with a static fallback and reduced-motion support. The Process rail tracks the stage nearest the viewport center and offers direct links; it becomes non-sticky on narrow screens. Apps & Workflows derives step count and labels from its project records and current filter. The dark-mode choice persists locally, and the ambient sprite keeps its existing pause control. Every interactive item remains keyboard reachable with a visible focus state. The page content remains complete without animation.
 
 ## Preservation and risk notes
 
@@ -39,12 +39,14 @@ Interactions are implemented with the existing React, Radix, and GSAP dependenci
 
 ## Final review
 
-- The home now follows the supplied pixel-art service direction, with web design, AI/automation, and SEO/GEO rows, a hands-on Why section, a direct service CTA, and a six-link route index. The existing wordmark stays a placeholder.
-- Typography uses Plus Jakarta Sans for body, upright Instrument Serif for headings, and JetBrains Mono only for code; italic styling is removed. The persistent light/dark toggle is system-aware, and the Why heading reveal has a reduced-motion fallback. Process behavior remains deferred until Marc clarifies whether pinning was the issue.
-- `npm run build` succeeds and prerenders all seven routes. `git diff --check` is clean.
+- The home follows the supplied pixel-art direction, with web design, AI/automation, and SEO/GEO rows, a hands-on Why section, a direct service CTA, a six-link route index, and a four-stage sticky Process rail. The existing wordmark stays a placeholder.
+- Apps & Workflows now gives each of the six supplied projects a selectable step; the filters adapt the selector to four apps or two workflows. No project records or claims were added.
+- Typography uses Plus Jakarta Sans for body, upright Instrument Serif for headings, and JetBrains Mono only for code; italic styling is removed. The persistent light/dark toggle is system-aware, and the Why heading reveal has a reduced-motion fallback.
+- `npm run build` succeeds and prerenders all seven routes. Targeted ESLint on `src/portfolio-v2.tsx` passes, and `git diff --check` is clean.
+- Targeted browser checks confirmed scroll tracking on the third Home stage, a sticky desktop rail, no horizontal overflow at 390px, and project selector counts of 6, 4, and 2. Selecting PeraNova updated the panel and counter. The local browser console reported no runtime errors.
 - The changed V2 TSX passes targeted ESLint. Repository-wide `npm run lint` still reports eight errors in unchanged `src/components/ui/*` files; none are in this change set.
-- Hallmark rendered five home captures at 1280×800, 1440×900, 1920×1080, full-page 1440px, and full-page 375px. Final result: 0 FAIL, 0 REFLEX, 0 WARN; kept-content checks passed for 17/17 links, 2/2 fields, and 15/15 handlers.
-- Browser checks covered explicit and system dark mode, saved-theme persistence across routes, mobile width, reduced motion, and a clean console. The standalone preview is `https://marc-adrian-portfolio-v2-preview.pages.dev`, sourced only from `portfolio-v2` with no custom domain; the V1 staging alias and actual production site were not changed.
+- The earlier Hallmark captures and cross-route checks are the baseline for the existing design; they were not rerun for this small interaction extension.
+- The standalone preview remains `https://marc-adrian-portfolio-v2-preview.pages.dev`, sourced only from `portfolio-v2` with no custom domain; V1 staging, production, and `main` remain unchanged.
 
 ## Static output
 
