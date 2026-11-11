@@ -268,19 +268,19 @@ function SceneHotspots() {
 const PROCESS_STEPS = [
   {
     title: 'Find the real bottleneck',
-    description: 'Start with where work gets stuck, not where AI can be added.',
+    description: 'Start with the part of the work that needs attention.',
   },
   {
     title: 'Shape a small solution',
-    description: 'Build a tool or workflow around the way the work actually happens.',
+    description: 'Build a tool or workflow around the real working pattern.'
   },
   {
     title: 'Test it in real work',
-    description: 'Use it on real campaigns and check the output with human judgment.',
+    description: 'Use it on real campaigns and review the output with human judgment.'
   },
   {
-    title: 'Keep what holds up',
-    description: 'Refine the useful parts, document them, and remove the rest.',
+    title: 'Refine the workflow',
+    description: 'Document useful parts and adjust the steps where needed.'
   },
 ];
 
@@ -413,8 +413,8 @@ function HomeProcessSection() {
         <div className="page-container home-process__pin-inner">
           <div className="section-heading section-heading--row home-process__heading">
             <div>
-              <h2 id="home-process-title">Build. Test. Keep what holds up.</h2>
-              <p>Small systems built around real work, with people making the calls.</p>
+              <h2 id="home-process-title">A practical workflow.</h2>
+              <p>Start with the task, shape a small solution, test it in real work, and review the output.</p>
             </div>
             <div className="home-process__heading-note">
               <p>Human judgment stays in the loop.</p>
@@ -485,8 +485,8 @@ function HomePage() {
       <section className="home-hero">
         <div className="page-container home-hero__grid">
           <div className="home-hero__copy">
-            <h1>Better marketing with AI and good judgment.</h1>
-            <p>I build and test AI marketing workflows on real campaigns.</p>
+            <h1>Practical marketing work with AI and human judgment.</h1>
+            <p>For hands-on marketers, I build apps, test workflows, and use AI in my own marketing work.</p>
             <div className="hero-actions">
               <a className="button button--primary" href="/contact.html">Work with me</a>
               <a className="button button--quiet" href="/work.html">See the work</a>
@@ -514,9 +514,9 @@ function HomePage() {
 
       <section className="home-manifesto" id="about" aria-labelledby="about-title">
         <div className="page-container manifesto-grid">
-          <h2 id="about-title">AI should help you do your best work.</h2>
+          <h2 id="about-title">Use AI where it supports the work.</h2>
           <div>
-            <p className="manifesto-copy">AI speeds up research, prototyping, and campaign operations. People keep the context and make the decisions.</p>
+            <p className="manifesto-copy">I use it for research, prototyping, and campaign operations, then review the output for accuracy, voice, and fit.</p>
             <a className="text-link" href="/philosophy.html">Read my philosophy</a>
           </div>
           <img
@@ -531,7 +531,7 @@ function HomePage() {
       <section className="home-practice" id="our-services" aria-labelledby="home-practice-title">
         <div className="page-container">
           <div className="section-heading section-heading--row">
-            <h2 id="home-practice-title">Practical work for real marketing needs.</h2>
+            <h2 id="home-practice-title">Marketing systems for practical work.</h2>
             <p>Web design, AI and automation, SEO and GEO.</p>
           </div>
           <div className="practice-rows">
@@ -545,14 +545,14 @@ function HomePage() {
             <article className="practice-row">
               <div className="practice-row__copy">
                 <h3>AI &amp; automation</h3>
-                <p>Human-reviewed workflows that protect quality.</p>
+                <p>Workflows reviewed for accuracy, voice, and quality.</p>
               </div>
               <img className="pixel-art practice-row__sprite" src={asset('style-builderrobotimg-484a6b0eb1.png')} alt="" aria-hidden="true" loading="lazy" />
             </article>
             <article className="practice-row">
               <div className="practice-row__copy">
                 <h3>SEO &amp; GEO</h3>
-                <p>Search and AI visibility built on useful information.</p>
+                <p>Useful information that supports search and AI visibility.</p>
               </div>
               <img className="pixel-art practice-row__sprite" src={asset('style-dark-grey-cat-node-swat-9a1267b156.png')} alt="" aria-hidden="true" loading="lazy" />
             </article>
@@ -566,10 +566,10 @@ function HomePage() {
         <div className="page-container why-grid">
           <div className="why-copy">
             <h2 id="why-title" className="why-title">
-              <span className="why-title__line">I build and test</span>{' '}
-              <span className="why-title__line">what I use.</span>
+              <span className="why-title__line">I use AI in my own work,</span>{' '}
+              <span className="why-title__line">build apps, and test workflows.</span>
             </h2>
-            <p className="why-intro">I test tools in my own work before bringing proven workflows to yours.</p>
+            <p className="why-intro">I share what I learn from those tests.</p>
             <a className="button button--primary why-cta" href="/contact.html">Talk about your project</a>
           </div>
           <div className="why-aside">
@@ -580,12 +580,12 @@ function HomePage() {
                 <p>People make the calls.</p>
               </li>
               <li>
-                <h3>Proven quality</h3>
-                <p>Tested on real campaigns.</p>
+                <h3>Real-work testing</h3>
+                <p>Workflows are tested in my marketing work.</p>
               </li>
               <li>
                 <h3>Shared tools</h3>
-                <p>Experiments become practical tools.</p>
+                <p>Useful experiments become practical tools.</p>
               </li>
             </ul>
           </div>
@@ -595,15 +595,15 @@ function HomePage() {
       <section className="home-index" aria-labelledby="home-index-title">
         <div className="page-container">
           <div className="section-heading section-heading--row">
-            <h2 id="home-index-title">Work that holds up in practice</h2>
-            <p>Pick a door. Each page goes deeper.</p>
+            <h2 id="home-index-title">Explore my work.</h2>
+            <p>Choose a page to see the tools, builds, and work behind it.</p>
           </div>
           <div className="route-index">
-            <a href="/philosophy.html"><span>01</span><h3>Where AI stops</h3></a>
-            <a href="/tool-lab.html"><span>02</span><h3>Which tools held up</h3></a>
-            <a href="/work.html"><span>03</span><h3>Apps I ship myself</h3></a>
+            <a href="/philosophy.html"><span>01</span><h3>Where AI fits</h3></a>
+            <a href="/tool-lab.html"><span>02</span><h3>Tools I tested</h3></a>
+            <a href="/work.html"><span>03</span><h3>Apps I build</h3></a>
             <a href="/timeline.html"><span>04</span><h3>Thirteen years of work</h3></a>
-            <a href="/audit.html"><span>05</span><h3>Find a workflow to fix</h3></a>
+            <a href="/audit.html"><span>05</span><h3>Find a workflow to improve</h3></a>
             <a href="/contact.html"><span>06</span><h3>Work with Marc</h3></a>
           </div>
         </div>
@@ -615,13 +615,13 @@ function HomePage() {
 const PILLARS = {
   content: {
     label: 'SEO & content',
-    aiTitle: 'Research synthesis and structural scaffolding',
+    aiTitle: 'Research, drafts, and workflow support',
     aiList: [
       'SERP gap clustering and entity extraction via MCP',
       'Transcript mining from customer and sales calls',
       'First-pass schema, meta, and 1-to-10 asset slicing',
     ],
-    humanTitle: 'Contrarian positioning, voice, and proof',
+    humanTitle: 'Judgment, voice, accuracy, and audience context',
     humanList: [
       'Lived operator anecdotes and real P&L screenshots',
       'Sharp hooks that challenge industry orthodoxy',
@@ -632,13 +632,13 @@ const PILLARS = {
   },
   apps: {
     label: 'App building',
-    aiTitle: 'Boilerplate, CI/CD audits, and schema generation',
+    aiTitle: 'Research, drafts, and workflow support',
     aiList: [
       'Claude Code + Neo MCP for rapid TypeScript scaffolding',
       'Automated security and static code scans via Jules and CodeQL',
       'Instant database branching on Ghost Postgres',
     ],
-    humanTitle: 'Product architecture, UX taste, and edge cases',
+    humanTitle: 'Judgment, voice, accuracy, and audience context',
     humanList: [
       'Designing workflows around real marketer pain points',
       'Haptic UI polish, micro-interactions, and zero bloat',
@@ -649,13 +649,13 @@ const PILLARS = {
   },
   ops: {
     label: 'Growth ops',
-    aiTitle: 'Multi-channel routing and automated reporting',
+    aiTitle: 'Research, drafts, and workflow support',
     aiList: [
       'Make and n8n pipelines syncing CRM, SEO, and lead alerts',
       'Automated weekly attribution dashboards (20+ hrs saved/wk)',
       'AI task triage inside Dart AI and Notion',
     ],
-    humanTitle: 'Offer strategy, funnel economics, and team coaching',
+    humanTitle: 'Judgment, voice, accuracy, and audience context',
     humanList: [
       'Deciding which channels deserve budget and focus',
       'Training 12-person teams to cut ramp-up time by 50%',
@@ -686,14 +686,14 @@ function PhilosophyPage() {
   return (
     <PageFrame>
       <PageIntro
-        title="Where AI stops, human taste takes over."
-        summary="Most teams use AI to flood channels with generic noise. After writing 1,000+ ranking articles and leading growth teams, here is the exact boundary I enforce in my own business."
+        title="How I use AI in real marketing work."
+        summary="I test tools, build workflows, and use AI in my business. I keep human judgment in charge of accuracy, voice, and audience relationships."
       />
       <section className="section-block philosophy-simulator">
         <div className="page-container">
           <div className="section-heading section-heading--row">
             <div>
-              <h2>AI speed, human craft</h2>
+              <h2>Human review for AI-assisted work</h2>
               <p>Choose a work area.</p>
             </div>
             <div className="tab-list" role="group" aria-label="Choose a work area">
@@ -713,17 +713,17 @@ function PhilosophyPage() {
           <div className="delegation-grid" aria-live="polite">
             <article className="delegation-panel">
               <h3>{data.aiTitle}</h3>
-              <p className="delegation-panel__label">Machine layer</p>
+              <p className="delegation-panel__label">AI-assisted layer</p>
               <PillarTasks lines={data.aiList} />
             </article>
             <article className="delegation-panel delegation-panel--human">
               <h3>{data.humanTitle}</h3>
-              <p className="delegation-panel__label">Marc’s layer</p>
+              <p className="delegation-panel__label">Marc’s review</p>
               <PillarTasks lines={data.humanList} />
             </article>
           </div>
-          <p className="simulator-outcome">{data.outcomeShort}</p>
-          <ReadMore label="Full outcome"><p>{data.outcome}</p></ReadMore>
+          <p className="simulator-outcome">I review the work before it goes out.</p>
+          <ReadMore label="Review standard"><p>Check accuracy, voice, and audience fit.</p></ReadMore>
         </div>
       </section>
 
@@ -740,18 +740,18 @@ function PhilosophyPage() {
           </div>
           <ul className="principle-list">
             <li><article>
-              <h3>Dogfood it</h3>
-              <p>Test before recommending.</p>
+              <h3>Test it in real work</h3>
+              <p>Use it before recommending.</p>
               <ReadMore label="More"><p>I test workflows inside Marcus_v2, NomadOS, Scribe, and agency pipelines before recommending them.</p></ReadMore>
             </article></li>
             <li><article>
-              <h3>Build what’s missing</h3>
-              <p>Build when software fails.</p>
+              <h3>Build what the workflow needs</h3>
+              <p>Create the missing tool when needed.</p>
               <ReadMore label="More"><p>When off-the-shelf SaaS misses the job, I wire MCP servers, Postgres backends, and TypeScript apps.</p></ReadMore>
             </article></li>
             <li><article>
-              <h3>Human review</h3>
-              <p>Keep a human gate.</p>
+              <h3>Review before it ships</h3>
+              <p>Check accuracy, voice, and audience fit.</p>
               <ReadMore label="More"><p>I share candid teardowns of what survives past week two and what gets cancelled.</p></ReadMore>
             </article></li>
           </ul>
@@ -759,7 +759,7 @@ function PhilosophyPage() {
       </section>
       <section className="close-band">
         <div className="page-container close-band__inner">
-          <h2>See the tools that made it through</h2>
+          <h2>See the tools I have tested</h2>
           <a className="button button--primary" href="/tool-lab.html">View tool verdicts</a>
         </div>
       </section>
@@ -882,19 +882,19 @@ function ToolLabPage() {
   return (
     <PageFrame>
       <PageIntro
-        title="Which AI tools are actually worth using?"
-        summary="Field notes from tools I use in apps and agency work."
+        title="Which AI tools earn a place in the workflow?"
+        summary="Field notes from real tests, app builds, and solo-business work."
       />
       <section className="section-block verdict-guide" aria-labelledby="verdict-guide-title">
         <div className="page-container">
           <div className="section-heading section-heading--row">
-            <h2 id="verdict-guide-title">Three verdicts</h2>
-            <p>Field notes, not trend rankings.</p>
+            <h2 id="verdict-guide-title">Three verdicts for different use cases.</h2>
+            <p>Daily driver, situational, or skip.</p>
           </div>
           <div className="verdict-guide__rows">
             <article><h3>Daily driver</h3><p>Used in regular work.</p></article>
-            <article><h3>Situational</h3><p>Useful for a narrow job.</p></article>
-            <article><h3>Skip</h3><p>Not a default choice.</p></article>
+            <article><h3>Situational</h3><p>Useful for a specific job.</p></article>
+            <article><h3>Skip</h3><p>Limited fit for regular work.</p></article>
           </div>
         </div>
       </section>
@@ -931,7 +931,7 @@ function ToolLabPage() {
       </section>
       <section className="close-band">
         <div className="page-container close-band__inner">
-          <h2>Tools that survive week two</h2>
+          <h2>Tools I have tested in real work</h2>
           <a className="button button--primary" href="/work.html">See apps and workflows</a>
         </div>
       </section>
@@ -953,10 +953,10 @@ type ProjectRecord = {
 
 const PROJECTS: ProjectRecord[] = [
   {
-    title: 'Marcus_v2: Autonomous Marketing & Ops Engine', selectorTitle: 'Marcus_v2', type: 'app', badge: 'AI codebase, Vercel and GitHub Actions',
-    metrics: 'Automated CI/CD, multi-agent workflows',
+    title: 'Marcus_v2: Agent harness for marketers', selectorTitle: 'Marcus_v2', type: 'app', badge: 'AI codebase, Vercel and GitHub Actions',
+    metrics: 'AI-assisted marketing workflows',
     desc: 'My flagship internal software suite combines AI workflow execution, automated content QA, and telemetry with CodeQL and Codacy guardrails.',
-    summary: 'AI-assisted ops, content QA, and code safety guardrails.',
+    summary: 'I am building an agent harness to help marketers work alongside AI, increase useful output, and protect voice, quality, and audience relationships.',
     stack: ['TypeScript', 'Next.js', 'Vercel', 'Claude MCP', 'GitHub Actions'],
     deepDive: 'Built to test agentic marketing workflows in a real production environment before rolling patterns out to client teams.',
   },
@@ -1031,13 +1031,13 @@ function WorkPage() {
   return (
     <PageFrame>
       <PageIntro
-        title="I ship products, not prompts."
-        summary="I don’t just write prompts. I ship apps and workflows around real operating work, from AI-assisted editorial pipelines to tools I use to run my own business."
+        title="I build apps for real work."
+        summary="I build apps, test AI workflows, and run my business with AI support. I share what holds up in practice, with human judgment guiding the work."
       />
       <section className="section-block work-page">
         <div className="page-container">
           <div className="section-heading section-heading--row">
-            <div><h2>{PROJECTS.length} builds for real work</h2><p>Select a build to explore the details.</p></div>
+            <div><h2>{PROJECTS.length} apps and workflows</h2><p>Select a build to explore the details.</p></div>
             <div className="tab-list" role="group" aria-label="Filter projects">
               <button className={filter === 'all' ? 'tab-button is-active' : 'tab-button'} type="button" aria-pressed={filter === 'all'} onClick={() => { setFilter('all'); setActiveStep(0); }}>All builds ({PROJECTS.length})</button>
               <button className={filter === 'app' ? 'tab-button is-active' : 'tab-button'} type="button" aria-pressed={filter === 'app'} onClick={() => { setFilter('app'); setActiveStep(0); }}>AI apps &amp; codebases</button>
@@ -1079,7 +1079,7 @@ function WorkPage() {
       </section>
       <section className="close-band">
         <div className="page-container close-band__inner">
-          <h2>Have a workflow worth fixing?</h2>
+          <h2>Have a workflow to improve?</h2>
           <a className="button button--primary" href="/contact.html">Work with Marc</a>
         </div>
       </section>
@@ -1168,8 +1168,8 @@ function TimelinePage() {
   return (
     <PageFrame>
       <PageIntro
-        title="Built from the trenches, not consultant theory."
-        summary="Thirteen years across writing, growth teams, and AI systems. The work changed; the focus on useful outcomes stayed."
+        title="I use AI where it helps marketing work."
+        summary="I build apps, test workflows, and run my business with AI support. I share what holds up in practice, with human judgment guiding the work."
       />
       <section className="section-block phase-index" aria-labelledby="phase-index-title">
         <div className="page-container">
@@ -1188,8 +1188,8 @@ function TimelinePage() {
       <section className="section-block timeline-section">
         <div className="page-container" ref={timelineRef}>
           <div className="timeline-intro">
-            <h2>Four phases, one direction</h2>
-            <p>From the craft of writing to the systems behind modern marketing.</p>
+            <h2>Thirteen years in marketing</h2>
+            <p>My work spans writing, growth, marketing systems, and AI workflow testing.</p>
           </div>
           <div className="timeline-layout">
             <div className="timeline-track" aria-hidden="true"><span className="timeline-track__fill" /></div>
@@ -1220,7 +1220,7 @@ function TimelinePage() {
       </section>
       <section className="close-band">
         <div className="page-container close-band__inner">
-          <h2>How the tools fit</h2>
+          <h2>See how I choose tools</h2>
           <a className="button button--primary" href="/tool-lab.html">View tool verdicts</a>
         </div>
       </section>
@@ -1234,47 +1234,47 @@ type Prescription = { impact: string; stack: string; advice: string };
 
 const PRESCRIPTIONS: Record<`${Bottleneck}-${Maturity}`, Prescription> = {
   'content-adhoc': {
-    impact: 'Est. savings: 18 to 25 hours/week (60% shorter turnaround)',
+    impact: 'Est. savings: 18 to 25 hours/week (60% shorter turnaround) — example from Marc’s playbook, not a forecast for your team.',
     stack: 'Recommended stack: Claude Voice Card + Ahrefs SERP Telemetry + Make.com Slicer',
     advice: 'Move your writers out of blank-page chat prompts. Build a persistent Voice Card from your top 10 human-written pieces, automate SERP entity briefs, and keep humans 100% in charge of hooks, proof points, and final polish.',
   },
   'content-slop': {
-    impact: 'Est. impact: +180% organic lift & 95% first-pass approval',
+    impact: 'Est. impact: +180% organic lift & 95% first-pass approval — example from Marc’s playbook, not a forecast for your team.',
     stack: 'Recommended stack: Scribe (SME Voice Capture) + Claude 3.7 + Human Editorial Gate',
     advice: 'Your output feels generic because the LLM has no proprietary insight. Record 10-minute voice interviews with your founders or SMEs, feed those transcripts into structured outlines, and ban one-click AI article wrappers immediately.',
   },
   'content-scaling': {
-    impact: 'Est. output: 20+ ranking assets/mo with a 3-person team',
+    impact: 'Est. output: 20+ ranking assets/mo with a 3-person team — example from Marc’s playbook, not a forecast for your team.',
     stack: 'Recommended stack: Custom Claude Code MCP Server + Ghost Postgres + Webflow API',
     advice: 'Wire a custom MCP agent directly to Google Search Console and your CMS so your team can audit decaying pages, generate data-backed refresh briefs, and ship 1-to-10 multi-channel variations in a single afternoon.',
   },
   'reporting-adhoc': {
-    impact: 'Est. savings: 20+ hrs/wk on Friday reporting',
+    impact: 'Est. savings: 20+ hrs/wk on Friday reporting — example from Marc’s playbook, not a forecast for your team.',
     stack: 'Recommended stack: Make.com + Google Analytics/GSC API + Automated Executive Digest',
-    advice: 'Eliminate manual CSV pulling. Automate weekly cross-channel attribution snapshots that flag anomalies, so Friday is spent making budget decisions rather than copying numbers into slides.',
+    advice: 'Automate weekly cross-channel attribution snapshots that flag anomalies, freeing Friday for budget decisions.',
   },
   'reporting-slop': {
-    impact: 'Est. impact: Clear revenue attribution ($5M+ playbook)',
+    impact: 'Est. impact: Clear revenue attribution ($5M+ playbook) — example from Marc’s playbook, not a forecast for your team.',
     stack: 'Recommended stack: Postgres Telemetry + Custom Cohort Dashboard + AI Anomaly Summary',
-    advice: 'Stop letting AI summarize vanity metrics. Connect content URLs directly to assisted pipeline and SQL conversion events so leadership sees revenue by content cluster.',
+    advice: 'Connect content URLs directly to assisted pipeline and SQL conversion events. This gives leadership a view of revenue by content cluster.',
   },
   'reporting-scaling': {
-    impact: 'Est. savings: Real-time autonomous telemetry',
+    impact: 'Est. savings: Real-time autonomous telemetry — example from Marc’s playbook, not a forecast for your team.',
     stack: 'Recommended stack: NomadOS-style Custom Cockpit + Ghost Branching + Slack Alerts',
     advice: 'Deploy a lightweight custom TypeScript dashboard that merges CRM pipeline, SEO rankings, and ad spend with agentic alerts whenever CAC or conversion rates drift.',
   },
   'leads-adhoc': {
-    impact: 'Est. impact: 50+ qualified leads/mo engine',
+    impact: 'Est. impact: 50+ qualified leads/mo engine — example from Marc’s playbook, not a forecast for your team.',
     stack: 'Recommended stack: Interactive Assessment Funnel + Make Enrichment + Behavior-Based Email',
-    advice: 'Replace static PDF lead magnets with an interactive diagnostic. Enrich submissions automatically and route high-intent prospects to tailored case studies.',
+    advice: 'Build an interactive diagnostic as the lead magnet, enrich submissions automatically, and route high-intent prospects to tailored case studies.',
   },
   'leads-slop': {
-    impact: 'Est. impact: 45%+ open rates & high-reply outreach',
+    impact: 'Est. impact: 45%+ open rates & high-reply outreach — example from Marc’s playbook, not a forecast for your team.',
     stack: 'Recommended stack: Deep Prospect Research Agent + Segmented Portfolio Matching',
-    advice: 'Kill generic AI sequence templates. Use AI to research prospect pain points and match them to one or two relevant case studies by stage and industry, then write short, human-first notes.',
+    advice: 'Research prospect pain points with AI, match them to one or two relevant case studies by stage and industry, and draft short, human-first notes.',
   },
   'leads-scaling': {
-    impact: 'Est. impact: 3x pipeline velocity',
+    impact: 'Est. impact: 3x pipeline velocity — example from Marc’s playbook, not a forecast for your team.',
     stack: 'Recommended stack: Multi-Channel 1-to-10 Distribution Engine + Automated Lead Scoring',
     advice: 'Turn every flagship case study into 10 native assets across search, LinkedIn, and segmented email nurtures with automated intent scoring.',
   },
@@ -1286,8 +1286,8 @@ const BOTTLENECK_OPTIONS: { value: Bottleneck; label: string }[] = [
   { value: 'leads', label: 'Lead generation & distribution' },
 ];
 const MATURITY_OPTIONS: { value: Maturity; label: string }[] = [
-  { value: 'adhoc', label: 'Ad-hoc ChatGPT prompts' },
-  { value: 'slop', label: 'Automated, but it feels generic' },
+  { value: 'adhoc', label: 'Ad hoc prompts' },
+  { value: 'slop', label: 'Automated workflows that feel generic' },
   { value: 'scaling', label: 'Ready for custom agents' },
 ];
 
@@ -1336,27 +1336,27 @@ function AuditPage() {
   return (
     <PageFrame>
       <PageIntro
-        title="Find where AI helps without hurting quality."
-        summary="Choose a bottleneck and AI maturity to get a starting workflow blueprint."
+        title="Find a useful AI workflow for your work."
+        summary="Choose a bottleneck and your current AI use to get a starting point to review."
       />
       <section className="section-block audit-section">
         <div className="page-container audit-layout">
           <div className="audit-copy">
-            <h2>A better first workflow</h2>
-            <p>Treat this as a starting point, not a forecast for your team.</p>
+            <h2>A workflow to explore</h2>
+            <p>Review the suggestion against your work before you automate or ship.</p>
             <img className="pixel-art audit-sprite" src={asset('style-builderrobotimg-484a6b0eb1.png')} alt="Pixel-art Marc tuning a small agent bot" loading="lazy" />
           </div>
           <div className="audit-terminal">
             <p className="terminal-title">Marc’s workflow diagnostic</p>
             <ChoiceGroup
-              legend="1. Biggest workflow bottleneck?"
+              legend="1. Which part of your workflow needs the most attention?"
               name="bottleneck"
               options={BOTTLENECK_OPTIONS}
               selected={bottleneck}
               onSelect={updateBottleneck}
             />
             <ChoiceGroup
-              legend="2. How is your team using AI today?"
+              legend="2. How are you using AI today?"
               name="maturity"
               options={MATURITY_OPTIONS}
               selected={maturity}
@@ -1373,10 +1373,10 @@ function AuditPage() {
                   <p>{result.advice}</p>
                 </>
               ) : (
-              <p>Choose inputs, then build a starting playbook.</p>
+              <p>Choose inputs to get a workflow starting point.</p>
               )}
             </div>
-            <p className="source-note">Examples from Marc’s playbook, not forecasts for your team.</p>
+            <p className="source-note">Examples from Marc’s tests and builds. Review the suggestion against your work before applying it.</p>
           </div>
         </div>
       </section>
@@ -1384,18 +1384,18 @@ function AuditPage() {
         <div className="page-container">
           <div className="section-heading section-heading--row">
             <h2 id="audit-outcomes-title">What the result contains</h2>
-            <p>A useful starting point, not a guarantee.</p>
+            <p>A workflow starting point to review before you act.</p>
           </div>
           <div className="audit-outcomes__rows">
-            <article><h3>Potential impact</h3><p>An example from Marc’s playbook, not a team-specific forecast.</p></article>
-            <article><h3>Suggested stack</h3><p>Tools matched to the bottleneck and AI maturity you selected.</p></article>
-            <article><h3>Next step</h3><p>A practical workflow to explore before automating or shipping.</p></article>
+            <article><h3>Workflow fit</h3><p>How the workflow could address the bottleneck you selected.</p></article>
+            <article><h3>Suggested stack</h3><p>Tools to consider based on the bottleneck and current AI use you selected.</p></article>
+            <article><h3>Review step</h3><p>Check the workflow before automating or shipping.</p></article>
           </div>
         </div>
       </section>
       <section className="close-band">
         <div className="page-container close-band__inner">
-          <h2>Find your next workflow</h2>
+          <h2>Choose a workflow to test.</h2>
           <a className="button button--primary" href="/contact.html">Talk with Marc</a>
         </div>
       </section>
@@ -1407,14 +1407,14 @@ function ContactPage() {
   return (
     <PageFrame>
       <PageIntro
-        title="Want AI workflows that hold up?"
-        summary="Web design, SEO and GEO, AI workflows, or fractional marketing leadership."
+        title="Need AI work that holds up in practice?"
+        summary="I help hands-on marketers choose tools for the job, build useful workflows, and review the output for accuracy, voice, and audience relationships."
       />
       <section className="section-block contact-section">
         <div className="page-container">
           <div className="contact-main">
-            <h2>Start with the real bottleneck</h2>
-            <p>Share the slowest part of the work. We’ll find the right fix.</p>
+            <h2>Start with the work you need to improve</h2>
+            <p>Share the task, workflow, or bottleneck. We can map a practical role for AI and keep review with you.</p>
             <a className="button button--primary" href="mailto:marcpadz@gmail.com?subject=Let%E2%80%99s%20talk%20about%20a%20workflow">Email Marc</a>
           </div>
         </div>
@@ -1423,7 +1423,7 @@ function ContactPage() {
         <div className="page-container">
           <div className="section-heading section-heading--row">
             <h2 id="contact-direct-title">Direct channels</h2>
-            <p>Or find the work and the code in public.</p>
+            <p>See the work, tools, and code in public.</p>
           </div>
           <div className="contact-aside">
             <img className="pixel-art contact-avatar" src={asset('style-marc-seated-casually-on-the-footer-borde-12e5bbc8d4.png')} alt="Pixel-art Marc seated with a laptop and coffee" loading="lazy" />
@@ -1439,11 +1439,11 @@ function ContactPage() {
         <div className="page-container">
           <h2>What we can work on</h2>
           <ul className="offer-rows">
-            <li><span className="offer-rows__title">Web design</span><span>Clear websites, product experiences, and next steps.</span></li>
-            <li><span className="offer-rows__title">AI workflows</span><span>Automation and content systems with human quality checks at the end.</span></li>
-            <li><span className="offer-rows__title">SEO and GEO</span><span>Search visibility and generative answer reach.</span></li>
-            <li><span className="offer-rows__title">Custom AI apps</span><span>Internal tools with MCP integrations.</span></li>
-            <li><span className="offer-rows__title">Fractional marketing leadership</span><span>Strategy, execution, and growth systems.</span></li>
+            <li><span className="offer-rows__title">Web design</span><span>Websites and product experiences shaped around the job.</span></li>
+            <li><span className="offer-rows__title">AI workflows</span><span>Practical workflows with review for accuracy, voice, and audience fit.</span></li>
+            <li><span className="offer-rows__title">Tool choices</span><span>Choosing tools based on the task and the trade-offs.</span></li>
+            <li><span className="offer-rows__title">Custom AI apps</span><span>Apps and internal tools built around a real workflow.</span></li>
+            <li><span className="offer-rows__title">Marketing systems</span><span>Strategy, execution, and practical operating support.</span></li>
           </ul>
         </div>
       </section>
